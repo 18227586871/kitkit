@@ -2,8 +2,8 @@ package main
 
 import (
 	"context"
-	"demo_go/demo"
 	"fmt"
+	client "micro_service/client/service"
 	"net/http"
 	"os"
 	"os/signal"
@@ -15,15 +15,11 @@ func main() {
 	ctx := context.Background()
 	errChan := make(chan error)
 
-	var svc demo.Service
-	svc = demo.ServiceStruct{}
-	endpoint := demo.MakeAdd(svc)
+	var svc client.Service
+	svc = client.ServiceStruct{}
+	endpoint := client.MakePingEndpoint(svc)
 
-	//limiter := rate.NewLimiter(rate.Every(time.Second), 3)
-	//
-	//endpoint = demo.NewTokenBucketLimitterWithBuildIn(limiter)(endpoint)
-
-	r := demo.MakeHttpHandler(ctx, endpoint)
+	r := client.MakeHttpHandler(ctx, endpoint)
 	go func() {
 		fmt.Println("Http Server start at port:9000")
 		handler := r
