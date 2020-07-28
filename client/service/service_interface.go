@@ -1,4 +1,4 @@
-package demo
+package client
 
 type Service interface {
 	Ping() string
