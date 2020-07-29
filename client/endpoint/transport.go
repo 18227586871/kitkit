@@ -1,4 +1,4 @@
-package client
+package endpoint
 
 import (
 	"context"
@@ -8,19 +8,21 @@ import (
 	"github.com/go-kit/kit/endpoint"
 	httptransport "github.com/go-kit/kit/transport/http"
 	"github.com/gorilla/mux"
+
+	"micro_service/client/model"
 )
 
-func MakePingEndpoint(s Service) endpoint.Endpoint {
+func MakePingEndpoint(s model.Service) endpoint.Endpoint {
 	return func(ctx context.Context, request interface{}) (response interface{}, err error) {
-		return PingReq{
+		return model.PingReq{
 			Ping: RpcResp(),
 		}, nil
 	}
 }
 
-// 解析请求过来的参数 request
+// 解析参数 request
 func decodePingReq(ctx context.Context, r *http.Request) (resp interface{}, err error) {
-	var request PingReq
+	var request model.PingReq
 	return request, nil
 }
 
@@ -30,6 +32,7 @@ func encodeResponse(ctx context.Context, w http.ResponseWriter, response interfa
 	return json.NewEncoder(w).Encode(response)
 }
 
+// 注册路由
 func MakeHttpHandler(ctx context.Context, endpoint endpoint.Endpoint) http.Handler {
 	r := mux.NewRouter()
 	// 路由
