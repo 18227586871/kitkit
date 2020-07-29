@@ -2,7 +2,6 @@ package main
 
 import (
 	"flag"
-	"micro_services/server/pkg/mytransport"
 	"net"
 	"os"
 	"time"
@@ -13,6 +12,7 @@ import (
 	"google.golang.org/grpc"
 
 	"micro_services/server/pkg/myendpoint"
+	"micro_services/server/pkg/mytransport"
 	"micro_services/server/proto"
 )
 
