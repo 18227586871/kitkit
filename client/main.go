@@ -3,11 +3,12 @@ package main
 import (
 	"context"
 	"fmt"
-	client "micro_service/client/service"
 	"net/http"
 	"os"
 	"os/signal"
 	"syscall"
+
+	client "micro_service/client/service"
 )
 
 func main() {
