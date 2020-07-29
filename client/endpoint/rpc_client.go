@@ -1,4 +1,4 @@
-package client
+package endpoint
 
 import (
 	"context"
@@ -11,6 +11,7 @@ import (
 
 var address string = "10.221.113.184:8081"
 
+// 调用rpc
 func RpcResp() string {
 	conn, err := grpc.Dial(address, grpc.WithInsecure())
 	if err != nil {

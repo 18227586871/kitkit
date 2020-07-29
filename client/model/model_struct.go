@@ -1,4 +1,4 @@
-package client
+package model
 
 type PingReq struct {
 	Ping string `json:"ping"`
