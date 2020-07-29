@@ -1,9 +1,11 @@
-package endpoint
+package myendpoint
 
 import (
 	"context"
+
 	"github.com/go-kit/kit/endpoint"
-	proto "micro_services/server/pb"
+
+	"micro_services/server/proto"
 )
 
 // 业务逻辑

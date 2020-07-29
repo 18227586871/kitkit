@@ -222,7 +222,7 @@ var _ context.Context
 var _ grpc.ClientConnInterface
 
 // This is a compile-time assertion to ensure that this generated file
-// is compatible with the grpcsvc package it is being compiled against.
+// is compatible with the myservice package it is being compiled against.
 const _ = grpc.SupportPackageIsVersion6
 
 // MyServiceClient is the client API for MyService service.

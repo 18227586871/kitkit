@@ -1,14 +1,15 @@
-package grpcsvc
+package mytransport
 
 import (
 	"context"
+
 	"github.com/go-kit/kit/endpoint"
 	grpctransport "github.com/go-kit/kit/transport/grpc"
-	endpoint2 "micro_services/server/endpoint"
-	proto "micro_services/server/pb"
+
+	"micro_services/server/pkg/myendpoint"
+	"micro_services/server/proto"
 )
 
-// grpc服务
 type grpcServer struct {
 	echo grpctransport.Handler
 }
@@ -21,15 +22,14 @@ func (s grpcServer) Echo(ctx context.Context, request *proto.EchoRequest) (*prot
 	return resp.(*proto.EchoResponse), nil
 }
 
-// 应用middleware
-func NewGrpcServer(endpoint endpoint2.EndpointSet, middlewares ...endpoint.Middleware) proto.MyServiceServer {
+func NewGrpcServer(endpointSet myendpoint.EndpointSet, middlewares ...endpoint.Middleware) proto.MyServiceServer {
 	for i := range middlewares {
-		endpoint.Echo = middlewares[i](endpoint.Echo)
+		endpointSet.Echo = middlewares[i](endpointSet.Echo)
 	}
 
 	return &grpcServer{
 		grpctransport.NewServer(
-			endpoint.Echo,
+			endpointSet.Echo,
 			decodeEchoRequest,
 			encodeEchoResponse,
 		),

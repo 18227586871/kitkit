@@ -1,12 +1,13 @@
-package middleware
+package myendpoint
 
 import (
 	"context"
 	"errors"
+	"time"
+
 	"github.com/go-kit/kit/endpoint"
 	"github.com/go-kit/kit/log"
 	"golang.org/x/time/rate"
-	"time"
 )
 
 func RateLimitMiddleware(limiter *rate.Limiter) endpoint.Middleware {
