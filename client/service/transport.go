@@ -3,10 +3,11 @@ package client
 import (
 	"context"
 	"encoding/json"
+	"net/http"
+
 	"github.com/go-kit/kit/endpoint"
 	httptransport "github.com/go-kit/kit/transport/http"
 	"github.com/gorilla/mux"
-	"net/http"
 )
 
 func MakePingEndpoint(s Service) endpoint.Endpoint {
