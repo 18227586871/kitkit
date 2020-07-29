@@ -1,4 +1,4 @@
-package endpoint
+package myendpoint
 
 import (
 	"context"
@@ -9,7 +9,7 @@ import (
 	httptransport "github.com/go-kit/kit/transport/http"
 	"github.com/gorilla/mux"
 
-	"micro_service/client/model"
+	"micro_service/client/pkg/model"
 )
 
 func MakePingEndpoint(s model.Service) endpoint.Endpoint {

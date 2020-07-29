@@ -9,8 +9,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"micro_service/client/endpoint"
-	"micro_service/client/model"
+	"micro_service/client/pkg/model"
+	"micro_service/client/pkg/myendpoint"
 )
 
 var address string = "localhost:9000"
@@ -22,9 +22,9 @@ func main() {
 
 	var svc model.Service
 	svc = model.ServiceStruct{}
-	ep := endpoint.MakePingEndpoint(svc)
+	ep := myendpoint.MakePingEndpoint(svc)
 
-	r := endpoint.MakeHttpHandler(ctx, ep)
+	r := myendpoint.MakeHttpHandler(ctx, ep)
 	go func() {
 		log.Println("Http Server start at port", address)
 		handler := r
