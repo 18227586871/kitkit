@@ -1,0 +1,9 @@
+[mongo]
+address = "mongodb://dhy:dhy123456@116.85.45.149:27017/admin"
+
+[http]
+listen = ":6126"
+
+[redis]
+address="116.85.45.149:6379"
+password="123456"
