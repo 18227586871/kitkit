@@ -9,8 +9,8 @@ import (
 	"os/signal"
 	"syscall"
 
-	"micro_service/client/pkg/model"
-	"micro_service/client/pkg/myendpoint"
+	"micro_service/internal/app/client/model"
+	"micro_service/internal/app/client/myendpoint"
 )
 
 var address string = "localhost:9000"

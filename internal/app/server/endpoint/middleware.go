@@ -1,4 +1,4 @@
-package myendpoint
+package endpoint
 
 import (
 	"context"

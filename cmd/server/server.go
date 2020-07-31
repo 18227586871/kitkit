@@ -11,27 +11,27 @@ import (
 	"golang.org/x/time/rate"
 	"google.golang.org/grpc"
 
-	"micro_services/server/pkg/myendpoint"
-	"micro_services/server/pkg/mytransport"
-	"micro_services/server/proto"
+	"micro_service/api/pb"
+	"micro_service/internal/app/server/endpoint"
+	"micro_service/internal/app/server/transport"
 )
 
 func main() {
 	var (
 		grpcAddr            = flag.String("grpc-addr", ":8081", "gRPC listen address")
 		logger              = log.NewLogfmtLogger(os.Stderr)
-		loggingMiddleware   = myendpoint.LoggingMiddleware(logger)
+		loggingMiddleware   = endpoint.LoggingMiddleware(logger)
 		limiter             = rate.NewLimiter(rate.Every(time.Second), 100)
-		rateLimitMiddleware = myendpoint.RateLimitMiddleware(limiter)
+		rateLimitMiddleware = endpoint.RateLimitMiddleware(limiter)
 	)
 	flag.Parse()
 
-	service := myendpoint.MyService{}
-	endpointSet := myendpoint.EndpointSet{Echo: myendpoint.MakeEchoEndpoint(service)}
+	service := endpoint.MyService{}
+	endpointSet := endpoint.EndpointSet{Echo: endpoint.MakeEchoEndpoint(service)}
 
-	grpcServer := mytransport.NewGrpcServer(endpointSet, loggingMiddleware, rateLimitMiddleware)
+	grpcServer := transport.NewGrpcServer(endpointSet, loggingMiddleware, rateLimitMiddleware)
 	baseServer := grpc.NewServer(grpc.UnaryInterceptor(kitgrpc.Interceptor))
-	proto.RegisterMyServiceServer(baseServer, grpcServer)
+	pb.RegisterMyServiceServer(baseServer, grpcServer)
 
 	grpcListener, err := net.Listen("tcp", *grpcAddr)
 	if err != nil {
