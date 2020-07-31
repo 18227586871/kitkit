@@ -9,7 +9,7 @@ import (
 	httptransport "github.com/go-kit/kit/transport/http"
 	"github.com/gorilla/mux"
 
-	"micro_service/client/pkg/model"
+	"micro_service/internal/app/client/model"
 )
 
 func MakePingEndpoint(s model.Service) endpoint.Endpoint {

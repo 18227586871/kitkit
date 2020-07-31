@@ -6,7 +6,8 @@ import (
 	"os"
 
 	"google.golang.org/grpc"
-	proto "micro_service/client/pb"
+
+	"micro_service/api/pb"
 )
 
 var address string = "10.221.113.184:8081"
@@ -18,12 +19,12 @@ func RpcResp() string {
 		log.Fatalf("did not connect: %v", err)
 	}
 	defer conn.Close()
-	c := proto.NewMyServiceClient(conn)
+	c := pb.NewMyServiceClient(conn)
 
 	if len(os.Args) > 1 {
 		log.Println(os.Args[1])
 	}
-	r, err := c.Echo(context.Background(), &proto.EchoRequest{Ping: "ping"})
+	r, err := c.Echo(context.Background(), &pb.EchoRequest{Ping: "ping"})
 	if err != nil {
 		log.Fatalf("could not greet: %v", err)
 	}
