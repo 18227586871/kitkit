@@ -6,5 +6,6 @@ package init
 //	mongodb.InitMongo()
 //	redis.InitRedis()
 //	mysql.InitMysql()
+//	log.InitLogger()
 //
 //}

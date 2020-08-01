@@ -12,9 +12,13 @@ import (
 const logFile = "./log.log"
 
 var (
-	logger        *zap.Logger
-	sugaredLogger *zap.SugaredLogger
+	logger *zap.Logger
+	//sugaredLogger *zap.SugaredLogger
 )
+
+func GetLogger() *zap.Logger {
+	return logger
+}
 
 func InitLogger() {
 	encoder := zapcore.NewConsoleEncoder(newEncoderConfig())
@@ -22,15 +26,13 @@ func InitLogger() {
 
 	//控制台输出
 	consoleCore := zapcore.NewCore(encoder, zapcore.Lock(os.Stdout), levelEnableFunc)
-
 	//文件输出
 	fileSyncCore := zapcore.NewCore(encoder, getLogWriter(logFile), levelEnableFunc)
 
-	//多个输出目标
+	//多输出目标
 	tee := zapcore.NewTee(consoleCore, fileSyncCore)
-
 	logger = zap.New(tee, zap.AddCaller())
-	sugaredLogger = logger.Sugar()
+	//sugaredLogger = logger.Sugar()
 }
 
 //日志格式配置
