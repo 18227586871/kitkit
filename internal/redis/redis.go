@@ -2,28 +2,29 @@ package redis
 
 import (
 	"github.com/go-redis/redis"
-	"log"
-	"micro_service/config"
+	"time"
 )
 
-var (
-	RedisClient *redis.Client
-)
+// 获取redis实例
+func getRedisPool() *redis.Client {
+	return redisClient
+}
 
-func InitRedis() {
+type redisStruct struct {
+	cache *redis.Client
+}
 
-	client := redis.NewClient(&redis.Options{
-		Addr:     config.Conf.GetString("redis.address"),
-		Password: "", // no password set
-		DB:       0,  // use default DB
-		PoolSize: config.Conf.GetInt("redis.maxPoolSize"),
-	})
-
-	defer client.Close()
-	pong, err := client.Ping().Result()
-	if err != nil {
-		panic(err)
+func RCurd() *redisStruct {
+	return &redisStruct{
+		cache: getRedisPool(),
 	}
-	log.Println("Redis is Collection!!!", pong)
-	RedisClient = client
+}
+
+// 先暂时订下来，后面可以直接用redis实例操作 set get
+func (r *redisStruct) Set(key, val string, time time.Duration) {
+	r.cache.Set(key, val, time)
+}
+
+func (r *redisStruct) Get(key string) string {
+	return r.cache.Get(key).Val()
 }
