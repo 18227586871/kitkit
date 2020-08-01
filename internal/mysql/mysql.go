@@ -1,25 +1,33 @@
 package mysql
 
-import "github.com/jinzhu/gorm"
+import (
+	_ "github.com/go-sql-driver/mysql"
+	"github.com/jmoiron/sqlx"
+	"log"
+	"micro_service/config"
+	"time"
+)
 
-// 获取mysql实例
-func getMysqlDB() *gorm.DB {
-	return mysqlDB
-}
+var MysqlDB *sqlx.DB
 
-type mysqlStruct struct {
-	db *gorm.DB
-}
-
-func MCurd() *mysqlStruct {
-	return &mysqlStruct{
-		db: getMysqlDB(),
+func InitMysql() {
+	db, err := sqlx.Open("mysql", config.Conf.GetString("mysql.address"))
+	// 打印日志
+	//db.LogMode(true)
+	if err != nil {
+		panic(err)
 	}
-
+	err = db.Ping()
+	if err != nil {
+		panic(err)
+	}
+	db.SetMaxIdleConns(10)
+	db.SetMaxOpenConns(200)
+	db.SetConnMaxLifetime(time.Hour)
+	MysqlDB = db
+	log.Println("Mysql is Collection!!!")
 }
 
-//暂时定下来
-func (db *mysqlStruct) Find()   {}
-func (db *mysqlStruct) Insert() {}
-func (db *mysqlStruct) Update() {}
-func (db *mysqlStruct) Delete() {}
+func GetMysqlDB() *sqlx.DB {
+	return MysqlDB
+}
