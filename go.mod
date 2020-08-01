@@ -9,6 +9,7 @@ require (
 	github.com/golang/protobuf v1.4.2
 	github.com/gorilla/mux v1.7.4
 	github.com/jinzhu/gorm v1.9.15
+	github.com/jmoiron/sqlx v1.2.0 // indirect
 	github.com/nats-io/nats-server/v2 v2.1.2
 	github.com/spf13/viper v1.7.0
 	go.mongodb.org/mongo-driver v1.4.0

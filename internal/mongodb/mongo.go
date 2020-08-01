@@ -5,10 +5,37 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"gopkg.in/mgo.v2/bson"
+	"log"
+	"micro_service/config"
 	"time"
 )
 
 type M = bson.M
+
+var MongoDB *mongo.Client
+
+func InitMongo() {
+
+	clientOptions := options.Client().ApplyURI(config.Conf.GetString("mongo.address"))
+
+	//连接池
+	clientOptions.SetMaxPoolSize(config.Conf.GetUint64("mongo.maxPoolSize"))
+	// Connect to MongoDB
+	client, err := mongo.Connect(context.Background(), clientOptions)
+	if err != nil {
+		panic(err)
+	}
+	err = client.Ping(context.Background(), nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	MongoDB = client
+	log.Println("Mongo is Collection!!!")
+
+}
+func GetMongoDB() *mongo.Client {
+	return MongoDB
+}
 
 type mongoCollection struct {
 	Timeout    time.Duration
