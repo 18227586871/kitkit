@@ -5,9 +5,11 @@ go 1.14
 require (
 	github.com/go-kit/kit v0.10.0
 	github.com/go-redis/redis v6.15.8+incompatible
+	github.com/go-sql-driver/mysql v1.5.0
 	github.com/golang/protobuf v1.4.2
 	github.com/gorilla/mux v1.7.4
-	github.com/spf13/viper v1.7.0
+	github.com/jinzhu/gorm v1.9.15
+	github.com/spf13/viper v1.7.1
 	go.mongodb.org/mongo-driver v1.4.0
 	golang.org/x/time v0.0.0-20200630173020-3af7569d3a1e
 	google.golang.org/grpc v1.31.0

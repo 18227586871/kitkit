@@ -5,44 +5,23 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
 	"gopkg.in/mgo.v2/bson"
-	"log"
-	"micro_service/config"
 	"time"
 )
 
 type M = bson.M
-
-var mongoDB *mongo.Client
-
-func InitMongo() {
-
-	clientOptions := options.Client().ApplyURI(config.Conf.GetString("mongo.address")).SetMaxPoolSize(config.Conf.GetUint64("mongo.maxPoolSize"))
-	// Connect to MongoDB
-	client, err := mongo.Connect(context.Background(), clientOptions)
-	if err != nil {
-		log.Fatal(err)
-	}
-	err = client.Ping(context.Background(), nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-	mongoDB = client
-	log.Println("Mongo is Collection!!!")
-
-}
 
 type mongoCollection struct {
 	Timeout    time.Duration
 	Collection *mongo.Collection
 }
 
-func getCollection(database string, collection string, opts ...*options.CollectionOptions) *mongo.Collection {
-	return mongoDB.Database(database).Collection(collection, opts...)
-}
-
+// mongo操作入口
 func MongoDBCurd(database string, collection string, opts ...*options.CollectionOptions) *mongoCollection {
 	dbCollection := getCollection(database, collection, opts...)
 	return &mongoCollection{Timeout: 5, Collection: dbCollection}
+}
+func getCollection(database string, collection string, opts ...*options.CollectionOptions) *mongo.Collection {
+	return mongoDB.Database(database).Collection(collection, opts...)
 }
 
 func (m *mongoCollection) FindOne(filter interface{}, result interface{}, opts ...*options.FindOneOptions) (err error) {

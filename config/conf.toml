@@ -5,6 +5,9 @@ maxPoolSize = 200
 [http]
 listen = ":6126"
 
+[mysql]
+address="root:123456@/aaa?charset=utf8&parseTime=True&loc=Local"
+
 [redis]
 address = "116.85.45.149:6379"
 password = "123456"
