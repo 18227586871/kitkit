@@ -7,7 +7,6 @@ import (
 	"gopkg.in/mgo.v2/bson"
 	"log"
 	"micro_service/config"
-	"sync"
 	"time"
 )
 
@@ -15,24 +14,20 @@ type M = bson.M
 
 var mongoDB *mongo.Client
 
-var once sync.Once
-
 func InitMongo() {
 
-	once.Do(func() {
-		clientOptions := options.Client().ApplyURI(config.Conf.GetString("mongo.address"))
-		// Connect to MongoDB
-		client, err := mongo.Connect(context.Background(), clientOptions)
-		if err != nil {
-			log.Fatal(err)
-		}
-		err = client.Ping(context.Background(), nil)
-		if err != nil {
-			log.Fatal(err)
-		}
-		mongoDB = client
-		log.Println("Mongo is Collection!!!")
-	})
+	clientOptions := options.Client().ApplyURI(config.Conf.GetString("mongo.address")).SetMaxPoolSize(config.Conf.GetUint64("mongo.maxPoolSize"))
+	// Connect to MongoDB
+	client, err := mongo.Connect(context.Background(), clientOptions)
+	if err != nil {
+		log.Fatal(err)
+	}
+	err = client.Ping(context.Background(), nil)
+	if err != nil {
+		log.Fatal(err)
+	}
+	mongoDB = client
+	log.Println("Mongo is Collection!!!")
 
 }
 

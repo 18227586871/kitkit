@@ -1,9 +1,11 @@
 [mongo]
 address = "mongodb://dhy:dhy123456@116.85.45.149:27017/admin"
+maxPoolSize = 200
 
 [http]
 listen = ":6126"
 
 [redis]
-address="116.85.45.149:6379"
-password="123456"
+address = "116.85.45.149:6379"
+password = "123456"
+maxPoolSize = 200
