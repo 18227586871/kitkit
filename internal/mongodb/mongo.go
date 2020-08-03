@@ -12,7 +12,7 @@ import (
 
 type M = bson.M
 
-var MongoDB *mongo.Client
+var mongoDB *mongo.Client
 
 func InitMongo() {
 
@@ -29,12 +29,12 @@ func InitMongo() {
 	if err != nil {
 		log.Fatal(err)
 	}
-	MongoDB = client
+	mongoDB = client
 	log.Println("Mongo is Collection!!!")
 
 }
 func GetMongoDB() *mongo.Client {
-	return MongoDB
+	return mongoDB
 }
 
 type mongoCollection struct {

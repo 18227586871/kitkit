@@ -7,7 +7,7 @@ import (
 )
 
 var (
-	RedisCache *redis.Client
+	redisCache *redis.Client
 )
 
 func InitRedis() {
@@ -24,12 +24,12 @@ func InitRedis() {
 	}
 
 	log.Println("Redis is Collection!!!", pong)
-	RedisCache = client
+	redisCache = client
 }
 
 // 获取redis实例
 func GetRedis() *redis.Client {
-	return RedisCache
+	return redisCache
 }
 
 //type redisStruct struct {
