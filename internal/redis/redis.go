@@ -12,19 +12,25 @@ var (
 
 func InitRedis() {
 
-	client := redis.NewClient(&redis.Options{
-		Addr:     config.GetConf().Redis.Address,
-		Password: config.GetConf().Redis.Password, // no password set
-		PoolSize: config.GetConf().Redis.MaxPoolSize,
-	})
+	redisOptions := &redis.Options{
+		ReadTimeout: -1,
+	}
+	redisOptions.Addr = config.GetConf().Redis.Address
+	if config.GetConf().Redis.Password != "" {
+		redisOptions.Password = config.GetConf().Redis.Password
+	}
+	redisOptions.DB = 0
+	if config.GetConf().Redis.MaxPoolSize > 0 {
+		redisOptions.PoolSize = config.GetConf().Redis.MaxPoolSize
+	}
+	redisCache = redis.NewClient(redisOptions)
 
-	pong, err := client.Ping().Result()
+	pong, err := redisCache.Ping().Result()
 	if err != nil {
 		panic(err)
 	}
 
 	log.Println("Redis is Collection!!!", pong)
-	redisCache = client
 }
 
 //获取redis实例

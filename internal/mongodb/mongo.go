@@ -12,7 +12,10 @@ import (
 
 type M = bson.M
 
-var mongoDB *mongo.Client
+var (
+	mongoDB *mongo.Client
+	err     error
+)
 
 func InitMongo() {
 
@@ -21,15 +24,14 @@ func InitMongo() {
 	//连接池
 	clientOptions.SetMaxPoolSize(config.GetConf().Mongo.MaxPoolSize)
 	// Connect to MongoDB
-	client, err := mongo.Connect(context.Background(), clientOptions)
+	mongoDB, err = mongo.Connect(context.Background(), clientOptions)
 	if err != nil {
 		panic(err)
 	}
-	err = client.Ping(context.Background(), nil)
+	err = mongoDB.Ping(context.Background(), nil)
 	if err != nil {
 		log.Fatal(err)
 	}
-	mongoDB = client
 	log.Println("Mongo is Collection!!!")
 
 }

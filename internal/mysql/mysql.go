@@ -8,22 +8,24 @@ import (
 	"time"
 )
 
-var mysqlDB *sqlx.DB
+var (
+	mysqlDB *sqlx.DB
+	err     error
+)
 
 func InitMysql() {
-	db, err := sqlx.Open("mysql", config.GetConf().Mysql.Address)
+	mysqlDB, err = sqlx.Open("mysql", config.GetConf().Mysql.Address)
 	// 打印日志
 	if err != nil {
 		panic(err)
 	}
-	err = db.Ping()
+	err = mysqlDB.Ping()
 	if err != nil {
 		panic(err)
 	}
-	db.SetMaxIdleConns(10)
-	db.SetMaxOpenConns(200)
-	db.SetConnMaxLifetime(time.Hour)
-	mysqlDB = db
+	mysqlDB.SetMaxIdleConns(10)
+	mysqlDB.SetMaxOpenConns(200)
+	mysqlDB.SetConnMaxLifetime(time.Hour)
 	log.Println("Mysql is Collection!!!")
 }
 
