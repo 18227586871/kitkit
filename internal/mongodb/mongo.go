@@ -16,10 +16,10 @@ var mongoDB *mongo.Client
 
 func InitMongo() {
 
-	clientOptions := options.Client().ApplyURI(config.Conf.GetString("mongo.address"))
+	clientOptions := options.Client().ApplyURI(config.GetConf().Mongo.Address)
 
 	//连接池
-	clientOptions.SetMaxPoolSize(config.Conf.GetUint64("mongo.maxPoolSize"))
+	clientOptions.SetMaxPoolSize(config.GetConf().Mongo.MaxPoolSize)
 	// Connect to MongoDB
 	client, err := mongo.Connect(context.Background(), clientOptions)
 	if err != nil {

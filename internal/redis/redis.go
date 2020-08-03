@@ -13,9 +13,9 @@ var (
 func InitRedis() {
 
 	client := redis.NewClient(&redis.Options{
-		Addr:     config.Conf.GetString("redis.address"),
-		Password: config.Conf.GetString("redis.password"), // no password set
-		PoolSize: config.Conf.GetInt("redis.maxPoolSize"),
+		Addr:     config.GetConf().Redis.Address,
+		Password: config.GetConf().Redis.Password, // no password set
+		PoolSize: config.GetConf().Redis.MaxPoolSize,
 	})
 
 	pong, err := client.Ping().Result()
@@ -27,18 +27,19 @@ func InitRedis() {
 	redisCache = client
 }
 
-// 获取redis实例
+//获取redis实例
 func GetRedis() *redis.Client {
 	return redisCache
 }
 
+//
 //type redisStruct struct {
 //	cache *redis.Client
 //}
-
+//
 //func RCurd() *redisStruct {
 //	return &redisStruct{
-//		cache: getRedisPool(),
+//		cache: GetRedis(),
 //	}
 //}
 //

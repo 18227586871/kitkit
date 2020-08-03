@@ -11,7 +11,7 @@ import (
 var mysqlDB *sqlx.DB
 
 func InitMysql() {
-	db, err := sqlx.Open("mysql", config.Conf.GetString("mysql.address"))
+	db, err := sqlx.Open("mysql", config.GetConf().Mysql.Address)
 	// 打印日志
 	if err != nil {
 		panic(err)
