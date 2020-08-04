@@ -3,15 +3,15 @@
 
 #### 文件夹名称 和 package包名
 
-######只包含小写字母a-z，如 api, cmd, githook
+* 只包含小写字母a-z，如 api, cmd, githook
 
 #### 代码文件名称
 
-######只包含小写字母a-z和下划线_，如 [rpc_client.go](https://gitee.com/Skyd188/micro_services/blob/master/internal/app/client/myendpoint/rpc_client.go)
+* 只包含小写字母a-z和下划线_，如 [rpc_client.go](https://gitee.com/Skyd188/micro_services/blob/master/internal/app/client/myendpoint/rpc_client.go)
 
 #### 函数/方法名称
 
-######大小写字母a-z A-Z，通常避免使用特殊符号和数字
+* 大小写字母a-z A-Z，通常避免使用特殊符号和数字
 
 ```go
 func MakeEchoEndpoint(svc pb.MyServiceServer) endpoint.Endpoint {
@@ -24,7 +24,7 @@ func MakeEchoEndpoint(svc pb.MyServiceServer) endpoint.Endpoint {
 
 #### 常量定义
 
-######驼峰命名，且通常在文件开头统一声明
+* 驼峰命名，且通常在文件开头统一声明
 
 ```go
 package user
@@ -39,7 +39,7 @@ const (
 
 #### 变量定义
 
-######驼峰命名，且函数内变量应尽量在函数开头统一声明
+* 驼峰命名，且函数内变量应尽量在函数开头统一声明
 
 ```go
 func DoSomeThing(str string) {
