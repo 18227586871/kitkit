@@ -9,5 +9,6 @@ import (
 func TestName(t *testing.T) {
 	redis := getRedis()
 	fmt.Println(redis)
+	redis.HSet()
 
 }

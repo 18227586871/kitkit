@@ -5,4 +5,5 @@ type Iface interface {
 	Update()
 	Delete()
 	Find()
+	FindOne()
 }

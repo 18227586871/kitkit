@@ -19,7 +19,8 @@ func MCurd() Iface {
 	}
 }
 
-func (m *mysqlStruct) Find()   {}
-func (m *mysqlStruct) Insert() {}
-func (m *mysqlStruct) Update() {}
-func (m *mysqlStruct) Delete() {}
+func (m *mysqlStruct) Find()    {}
+func (m *mysqlStruct) FindOne() {}
+func (m *mysqlStruct) Insert()  {}
+func (m *mysqlStruct) Update()  {}
+func (m *mysqlStruct) Delete()  {}
