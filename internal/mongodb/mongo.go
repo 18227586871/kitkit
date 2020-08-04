@@ -4,38 +4,10 @@ import (
 	"context"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"gopkg.in/mgo.v2/bson"
-	"log"
-	"micro_service/config"
 	"time"
 )
 
-type M = bson.M
-
-var (
-	mongoDB *mongo.Client
-	err     error
-)
-
-func InitMongo() {
-
-	clientOptions := options.Client().ApplyURI(config.GetConf().Mongo.Address)
-
-	//连接池
-	clientOptions.SetMaxPoolSize(config.GetConf().Mongo.MaxPoolSize)
-	// Connect to MongoDB
-	mongoDB, err = mongo.Connect(context.Background(), clientOptions)
-	if err != nil {
-		panic(err)
-	}
-	err = mongoDB.Ping(context.Background(), nil)
-	if err != nil {
-		log.Fatal(err)
-	}
-	log.Println("Mongo is Collection!!!")
-
-}
-func GetMongoDB() *mongo.Client {
+func getMongoDB() *mongo.Client {
 	return mongoDB
 }
 
@@ -45,7 +17,7 @@ type mongoCollection struct {
 }
 
 // mongo操作入口
-func MongoDBCurd(database string, collection string, opts ...*options.CollectionOptions) *mongoCollection {
+func MongoDBCurd(database string, collection string, opts ...*options.CollectionOptions) Iface {
 	dbCollection := getCollection(database, collection, opts...)
 	return &mongoCollection{Timeout: 5, Collection: dbCollection}
 }

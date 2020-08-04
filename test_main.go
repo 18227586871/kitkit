@@ -7,7 +7,7 @@ import (
 
 func main() {
 	redis.InitRedis()
-	getRedis := redis.GetRedis().LPush("a", "aaa").Val()
 
-	fmt.Println(getRedis)
+	get := redis.RCurd().Get("ddddd")
+	fmt.Println(get)
 }

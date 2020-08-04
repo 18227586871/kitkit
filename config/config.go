@@ -25,7 +25,9 @@ type httpConf struct {
 
 // Mysql
 type mysqlConf struct {
-	Address string
+	Address     string
+	MaxOpenConn int
+	MaxIdleConn int
 }
 
 // Redis
