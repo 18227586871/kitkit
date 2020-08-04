@@ -13,6 +13,26 @@ import (
 	"micro_service/internal/app/client/myendpoint"
 )
 
+// @title Swagger Example API
+// @version 1.0
+// @description This is a sample server celler server.
+// @termsOfService http://swagger.io/terms/
+
+// @contact.name API Support
+// @contact.url http://www.swagger.io/support
+// @contact.email support@swagger.io
+
+// @license.name Apache 2.0
+// @license.url http://www.apache.org/licenses/LICENSE-2.0.html
+
+// @host localhost:9000
+// @BasePath /api/v1
+
+// @securitydefinitions.oauth2.accessCode OAuth2AccessCode
+// @tokenUrl https://example.com/oauth/token
+// @authorizationUrl https://example.com/oauth/authorize
+// @scope.admin Grants read and write access to administrative information
+
 var address string = "localhost:9000"
 
 func main() {
