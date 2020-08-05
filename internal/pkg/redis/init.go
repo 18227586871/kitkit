@@ -1,28 +1,21 @@
 package redis
 
 import (
-	"log"
-	"micro_service/config"
-
 	"github.com/go-redis/redis"
+	"log"
 )
 
 var (
 	redisCache *redis.Client
 )
 
-func InitRedis() {
+func InitRedis(address, password string, poolSize int) {
 
 	redisOptions := &redis.Options{
 		ReadTimeout: -1,
-	}
-	redisOptions.Addr = config.GetConf().Redis.Address
-	if config.GetConf().Redis.Password != "" {
-		redisOptions.Password = config.GetConf().Redis.Password
-	}
-	redisOptions.DB = 0
-	if config.GetConf().Redis.MaxPoolSize > 0 {
-		redisOptions.PoolSize = config.GetConf().Redis.MaxPoolSize
+		Addr:        address,
+		Password:    password,
+		PoolSize:    poolSize,
 	}
 	redisCache = redis.NewClient(redisOptions)
 

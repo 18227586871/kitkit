@@ -2,7 +2,6 @@ package mysql
 
 import (
 	"log"
-	"micro_service/config"
 	"time"
 
 	"github.com/jmoiron/sqlx"
@@ -13,8 +12,8 @@ var (
 	err     error
 )
 
-func InitMysql() {
-	mysqlDB, err = sqlx.Open("mysql", config.GetConf().Mysql.Address)
+func InitMysql(address string, idleConn, openConn int, maxLifeTime time.Duration) {
+	mysqlDB, err = sqlx.Open("mysql", address)
 	// 打印日志
 	if err != nil {
 		panic(err)
@@ -23,8 +22,8 @@ func InitMysql() {
 	if err != nil {
 		panic(err)
 	}
-	mysqlDB.SetMaxIdleConns(config.GetConf().Mysql.MaxIdleConn)
-	mysqlDB.SetMaxOpenConns(config.GetConf().Mysql.MaxOpenConn)
-	mysqlDB.SetConnMaxLifetime(time.Second * 5)
+	mysqlDB.SetMaxIdleConns(idleConn)
+	mysqlDB.SetMaxOpenConns(openConn)
+	mysqlDB.SetConnMaxLifetime(maxLifeTime)
 	log.Println("Mysql is Collection!!!")
 }
