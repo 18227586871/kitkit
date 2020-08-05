@@ -56,8 +56,8 @@ package user
 import "github.com/go-kit/kit"
 
 const (
-    userName    = "Tom"
-    companyName = "Meross"
+    userName    = "Tom" //unexported
+    CompanyName = "Meross" //exported
 )
 ```
 
@@ -68,14 +68,15 @@ const (
 ```go
 package demo
 
-func DoSomeThing(str string) {
-    var (
-        a, b, c string
-        x, y, z int
-    )
+func DoSomeThing(str string) error {
+    var user User
 
-    //something
-    return
+    if user, ok := userMap[str]; !ok {
+        return errors.New("not found")
+    }
+    
+    fmt.Println(user)
+    return nil
 }
 ```
 
