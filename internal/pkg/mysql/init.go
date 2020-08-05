@@ -1,10 +1,11 @@
 package mysql
 
 import (
-	"github.com/jmoiron/sqlx"
 	"log"
 	"micro_service/config"
 	"time"
+
+	"github.com/jmoiron/sqlx"
 )
 
 var (

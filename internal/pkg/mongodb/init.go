@@ -2,11 +2,12 @@ package mongodb
 
 import (
 	"context"
+	"log"
+	"micro_service/config"
+
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/mongo"
 	"go.mongodb.org/mongo-driver/mongo/options"
-	"log"
-	"micro_service/config"
 )
 
 type M = bson.M
