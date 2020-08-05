@@ -48,7 +48,6 @@ func init() {
 
 	if err := v.ReadInConfig(); err != nil {
 		panic(err)
-		return
 	}
 
 	if err := v.Unmarshal(&conf); err != nil {
