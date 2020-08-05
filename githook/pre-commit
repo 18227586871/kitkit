@@ -1,0 +1,14 @@
+#!/bin/sh
+
+
+goimports -w .
+echo "包格式化完成"
+
+go fmt ./...
+echo "代码格式化完成"
+
+go vet ./...
+echo "代码静态检查完成"
+
+go test ./...
+echo "代码测试完成"
