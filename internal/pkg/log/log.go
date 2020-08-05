@@ -9,7 +9,9 @@ import (
 	"go.uber.org/zap/zapcore"
 )
 
-const logFile = "./log.log"
+const (
+	logFileDir = "./"
+)
 
 var (
 	logger *zap.Logger
@@ -27,7 +29,7 @@ func InitLogger() {
 	//控制台输出
 	consoleCore := zapcore.NewCore(encoder, zapcore.Lock(os.Stdout), levelEnableFunc)
 	//文件输出
-	fileSyncCore := zapcore.NewCore(encoder, getLogWriter(logFile), levelEnableFunc)
+	fileSyncCore := zapcore.NewCore(encoder, getLogWriter(logFileDir+"log.log"), levelEnableFunc)
 
 	//多输出目标
 	tee := zapcore.NewTee(consoleCore, fileSyncCore)
