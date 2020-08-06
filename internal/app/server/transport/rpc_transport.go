@@ -7,7 +7,7 @@ import (
 	grpctransport "github.com/go-kit/kit/transport/grpc"
 
 	"micro_service/api/pb"
-	svcendpoint "micro_service/internal/app/server/endpoint"
+	severendpoint "micro_service/internal/app/server/endpoint"
 )
 
 type grpcServer struct {
@@ -23,7 +23,7 @@ func (s grpcServer) Echo(ctx context.Context, request *pb.EchoRequest) (*pb.Echo
 }
 
 // 统一处理endpoint和middleware并返回
-func NewGrpcServer(endpointSet svcendpoint.EndpointSet, middlewares ...endpoint.Middleware) pb.MyServiceServer {
+func NewGrpcServer(endpointSet severendpoint.EndpointSet, middlewares ...endpoint.Middleware) pb.MyServiceServer {
 	for i := range middlewares {
 		endpointSet.Echo = middlewares[i](endpointSet.Echo)
 	}
@@ -37,10 +37,10 @@ func NewGrpcServer(endpointSet svcendpoint.EndpointSet, middlewares ...endpoint.
 	}
 }
 
-func decodeEchoRequest(ctx context.Context, i interface{}) (request interface{}, err error) {
-	return i.(*pb.EchoRequest), nil
+func decodeEchoRequest(_ context.Context, request interface{}) (interface{}, error) {
+	return request.(*pb.EchoRequest), nil
 }
 
-func encodeEchoResponse(ctx context.Context, i interface{}) (response interface{}, err error) {
-	return i.(*pb.EchoResponse), nil
+func encodeEchoResponse(_ context.Context, response interface{}) (interface{}, error) {
+	return response.(*pb.EchoResponse), nil
 }
